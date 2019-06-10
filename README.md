@@ -3,14 +3,30 @@
 * [Repositorio Principal](https://github.com/PracticaDS/pdes-tp-anonymous)
 * [Repositorio E2E](https://github.com/PracticaDS/pdes-tp-e2e-anonymous)
 
-## Installing & Testing
+## Installing & Running
 
-### TL;DR
+Project uses [sbt plugin][sbtplugindoc] of [gatling][gatlingdoc].
+It contains basic simulation from gatling quick start bundle.
+
+[sbtplugindoc]: https://gatling.io/docs/current/extensions/sbt_plugin/
+[gatlingdoc]: https://gatling.io/docs/current/advanced_tutorial/
+
+### Run
+
+All tests:
 
 ```sh
-git checkout git@github.com:PracticaDS/pdes-tp-e2e-anonymous.git
-cd pdes-tp-e2e-anonymous
-yarn install
-echo '{ "host": "https://practicads.github.io/pdes-tp-anonymous/" }' > cypress.env.json
-yarn cypress:open
+sbt "gatling:test"
+```
+
+Single test:
+
+```sh
+sbt "gatling:testOnly pdes.anonymous.GetUsersSimulation"
+```
+
+Report:
+
+```sh
+sbt "gatling:lastReport"
 ```
