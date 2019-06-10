@@ -8,7 +8,7 @@ object Requests {
   def getAllUsers() = {
     http("Get All Users")
       .get("/")
-      .check(status.is(200))
+      .check(status.in(200, 304))
   }
 
   def getOrCreateUser(username: String = "nobody") = {
