@@ -1,4 +1,4 @@
-package ar.edu.unq.pdes.anonymous
+package pdes.anonymous
 
 import Requests._
 import scala.concurrent.duration._

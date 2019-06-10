@@ -1,4 +1,4 @@
-package ar.edu.unq.pdes.anonymous
+package pdes.anonymous
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
