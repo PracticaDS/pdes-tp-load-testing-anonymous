@@ -1,0 +1,10 @@
+{
+  "simulation": "pdes.anonymous.GameSimulation",
+  "simulationId": "gamesimulation",
+  "start": 1561837419152,
+  "description": "",
+  "scenarios": ["Swap machine"],
+  "assertions": [
+
+  ]
+}
