@@ -20,14 +20,13 @@ class GameSimulation extends BaseSimulation {
 
   val swapMachine: ScenarioBuilder = scenario("Swap machine")
     .exec(_.set("user", getUser()))
-    .exec(getOrCreateUser("${user}").silent)
-      .exec(createGame("${user}", "game"))
+    .exec(getOrCreateUser("${user}"))
+    .exec(createGame("${user}", "game"))
+    .exec(getIdGame("${user}"))
     .repeat(saves) {
-      exec(getIdGame("${user}"))
-        .exec(updateGame("${user}", "${gameId}"))
-        .pause(1)
+      exec(updateGame("${user}", "${gameId}")).pause(1)
     }
-    .exec(deleteUser("${user}").silent)
+    .exec(deleteUser("${user}"))
 
   setUp(
     swapMachine.inject(constantUsersPerSec(usersPerSecond) during (1 minutes))
