@@ -2,6 +2,8 @@ package pdes.anonymous
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
+import io.gatling.http.request.builder.HttpRequestBuilder
+
 import scala.util.Random
 
 object Requests {
@@ -14,7 +16,7 @@ object Requests {
       """"type":"STARTER","direction":0,"resource":{"type":"GOLD","state":"SOLID"},"isCrafting":false""",
       """"type":"EMPTY""""
     )
-    return machines(random.nextInt(machines.length))
+    machines(random.nextInt(machines.length))
   }
 
   def randomMachines(): String = {
@@ -22,18 +24,18 @@ object Requests {
     for(x <- 0 to 3) {
       for (y <- 0 to 3) {
         if (x == 0 && y == 0) {
-          result += s"""{"posiotion":{"x": ${x},"y":${y}},${randomMachine()}}"""
+          result += s"""{"posiotion":{"x": $x,"y":$y},${randomMachine()}}"""
         }
         else {
-          result += s""",{"posiotion":{"x": ${x},"y":${y}},${randomMachine()}}"""
+          result += s""",{"posiotion":{"x": $x,"y":$y},${randomMachine()}}"""
         }
       }
     }
-    return result + "]"
+    result + "]"
   }
 
   def randomGame(): String = {
-    return s"""{
+    s"""{
         "state":  {
           "currentAction": { "action": null },
           "machines": ${randomMachines()},
@@ -44,9 +46,9 @@ object Requests {
   }
 
   def emptyGame(gameName: String): String = {
-    return s"""
+    s"""
          {
-            "name": "${gameName}",
+            "name": "$gameName",
             "state": {
               "currentAction": { "action": null },
               "machines": [],
@@ -58,20 +60,20 @@ object Requests {
        """
   }
 
-  def getAllUsers() = {
+  def getAllUsers: HttpRequestBuilder = {
     http("Get All Users")
       .get("/")
       .check(status.in(200, 304))
   }
 
-  def getOrCreateUser(username: String = "nobody") = {
+  def getOrCreateUser(username: String = "nobody"): HttpRequestBuilder = {
     http("Get or Create User")
       .get(s"/$username")
       .header("Content-Type", "application/json")
       .check(status.is(200))
   }
 
-  def deleteUser(username: String = "nobody") = {
+  def deleteUser(username: String = "nobody"): HttpRequestBuilder = {
     http("Delete User")
       .delete(s"/$username")
       .check(status.is(204))
@@ -85,7 +87,7 @@ object Requests {
 //      .check(status.is(200))
 //  }
 
-  def createGame(username: String = "nobody", gameName: String = "game") = {
+  def createGame(username: String = "nobody", gameName: String = "game"): HttpRequestBuilder = {
     http("Create game")
       .post(s"/$username/games")
       .header("Content-Type", "application/json")
@@ -93,14 +95,14 @@ object Requests {
       .check(status.is(201))
   }
 
-  def getIdGame(username: String = "nobody") = {
+  def getIdGame(username: String = "nobody"): HttpRequestBuilder = {
     http("Get game")
       .get(s"/$username")
       .header("Content-Type", "application/json")
       .check(jsonPath("$..games[0]._id").find.saveAs("gameId"))
   }
 
-  def updateGame(username: String = "nobody", gameId: String = "nobody-gameId") = {
+  def updateGame(username: String = "nobody", gameId: String = "nobody-gameId"): HttpRequestBuilder = {
     http("Update game")
       .put(s"/$username/games/$gameId")
       .header("Content-Type", "application/json")

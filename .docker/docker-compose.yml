@@ -1,0 +1,50 @@
+version: '2'
+services:
+  mongo:
+    image: mongo
+    restart: always
+    volumes:
+      - ./db:/data/db
+  mongo-express:
+    image: mongo-express
+    restart: always
+    depends_on:
+      - mongo
+    ports:
+      - '127.0.0.1:8081:8081'
+  api:
+    image: pdesanonymous/api
+    restart: always
+    ports:
+      - '127.0.0.1:8080:8080'
+    environment:
+      - MONGO_HOST=mongo
+    depends_on:
+      - mongo
+      - mongo-express
+  web:
+    image: pdesanonymous/web
+    restart: always
+    volumes:
+      - ./config.js:/usr/share/nginx/html/config.js
+    depends_on:
+      - api
+    ports:
+      - '127.0.0.1:8000:80'
+  prometheus:
+    image: prom/prometheus
+    restart: always
+    volumes:
+     - ./prometheus:/etc/prometheus
+    depends_on:
+      - api
+    ports:
+      - '127.0.0.1:9090:9090'
+  grafana:
+    image: grafana/grafana:5.1.0
+    restart: always
+    depends_on:
+      - prometheus
+    ports:
+      - '127.0.0.1:3000:3000'
+    

@@ -6,7 +6,7 @@ import io.gatling.http.protocol.HttpProtocolBuilder
 
 abstract class BaseSimulation extends Simulation {
   // Here is the root for all relative URLs
-  val baseUrl = "http://localhost:8080"
+  val baseUrl: String = sys.env.getOrElse("API", "http://localhost:8080")
   val headers = "application/json,text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
 
   val httpProtocol: HttpProtocolBuilder = http
