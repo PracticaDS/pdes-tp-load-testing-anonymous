@@ -1,9 +1,10 @@
 package pdes.anonymous
-
+/*
 import Requests._
 import scala.concurrent.duration._
 import io.gatling.core.Predef._
 import io.gatling.core.structure.ScenarioBuilder
+
 
 class GetUsersSimulation extends BaseSimulation {
 
@@ -24,3 +25,4 @@ class GetUsersSimulation extends BaseSimulation {
     scn.inject(rampUsers(200)during(10 seconds))
   ).protocols(httpProtocol)
 }
+*/
