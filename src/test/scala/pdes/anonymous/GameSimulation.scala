@@ -8,18 +8,17 @@ import io.gatling.core.structure.ScenarioBuilder
 
 class GameSimulation extends BaseSimulation {
 
-  var number = 0;
-
+  var number = 0
   val saves = 150 // one save per seconds => 2.5 minutes playing
   val usersPerSecond = 5
 
-  def getUser(): String = {
-    number+= 1;
-    s"""user${number}"""
+  def getUser: String = {
+    number += 1
+    s"""user$number"""
   }
 
   val swapMachine: ScenarioBuilder = scenario("Swap machine")
-    .exec(_.set("user", getUser()))
+    .exec(_.set("user", getUser))
     .exec(getOrCreateUser("${user}"))
     .exec(createGame("${user}", "game"))
     .exec(getIdGame("${user}"))

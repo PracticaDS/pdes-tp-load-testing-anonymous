@@ -1,0 +1,16 @@
+language: scala
+
+jdk: oraclejdk8
+
+scala:
+  - 2.12.8
+
+before_script:
+  - pushd .docker
+  - docker-compose pull
+  - docker-compose up -d
+  - while ! echo exit | curl http://localhost:8080; do sleep 10; done
+  - popd
+
+script:
+  - sbt ++$TRAVIS_SCALA_VERSION "gatling:test"
