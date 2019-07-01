@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/PracticaDS/pdes-tp-load-testing-anonymous.svg?branch=master)](https://travis-ci.org/PracticaDS/pdes-tp-load-testing-anonymous)
+
 # Load testing :: Grupo Anonymous :: PDeS
 
 * [Repositorio Principal](https://github.com/PracticaDS/pdes-tp-anonymous)
